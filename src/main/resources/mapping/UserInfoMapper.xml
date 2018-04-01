@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sharism.user_server.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.sharism.user_server.model.UserInfo">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <id column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="user_mail" jdbcType="VARCHAR" property="userMail" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_state" jdbcType="CHAR" property="userState" />
+    <result column="theme" jdbcType="VARCHAR" property="theme" />
+    <result column="user_score" jdbcType="DOUBLE" property="userScore" />
+    <result column="blog_count" jdbcType="BIGINT" property="blogCount" />
+    <result column="photo_count" jdbcType="BIGINT" property="photoCount" />
+    <result column="file_count" jdbcType="BIGINT" property="fileCount" />
+    <result column="memory_capacity" jdbcType="DOUBLE" property="memoryCapacity" />
+    <result column="used_capacity" jdbcType="DOUBLE" property="usedCapacity" />
+    <result column="user_age" jdbcType="INTEGER" property="userAge" />
+    <result column="user_sex" jdbcType="CHAR" property="userSex" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="constellation" jdbcType="VARCHAR" property="constellation" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="hobbies" jdbcType="VARCHAR" property="hobbies" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="contact_way" jdbcType="VARCHAR" property="contactWay" />
+    <result column="expound" jdbcType="VARCHAR" property="expound" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="register_date" jdbcType="VARCHAR" property="registerDate" />
+    <result column="privacy_set" jdbcType="INTEGER" property="privacySet" />
+    <result column="icon_path" jdbcType="VARCHAR" property="iconPath" />
+    <result column="login_time" jdbcType="VARCHAR" property="loginTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_name, role, user_nickname, user_mail, user_phone, user_password, user_state, 
+    theme, user_score, blog_count, photo_count, file_count, memory_capacity, used_capacity, 
+    user_age, user_sex, birthday, constellation, location, major, hobbies, signature, 
+    contact_way, expound, qq, mail, register_date, privacy_set, icon_path, login_time, 
+    login_ip
+  </sql>
+  <select id="selectByExample" parameterType="com.sharism.user_server.model.UserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_server_db
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.sharism.user_server.model.UserInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_server_db
+    where id = #{id,jdbcType=CHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.sharism.user_server.model.UserInfoKey">
+    delete from user_server_db
+    where id = #{id,jdbcType=CHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sharism.user_server.model.UserInfoExample">
+    delete from user_server_db
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sharism.user_server.model.UserInfo">
+    insert into user_server_db (id, user_name, role, 
+      user_nickname, user_mail, user_phone, 
+      user_password, user_state, theme, 
+      user_score, blog_count, photo_count, 
+      file_count, memory_capacity, used_capacity, 
+      user_age, user_sex, birthday, 
+      constellation, location, major, 
+      hobbies, signature, contact_way, 
+      expound, qq, mail, 
+      register_date, privacy_set, icon_path, 
+      login_time, login_ip)
+    values (#{id,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
+      #{userNickname,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userState,jdbcType=CHAR}, #{theme,jdbcType=VARCHAR}, 
+      #{userScore,jdbcType=DOUBLE}, #{blogCount,jdbcType=BIGINT}, #{photoCount,jdbcType=BIGINT}, 
+      #{fileCount,jdbcType=BIGINT}, #{memoryCapacity,jdbcType=DOUBLE}, #{usedCapacity,jdbcType=DOUBLE}, 
+      #{userAge,jdbcType=INTEGER}, #{userSex,jdbcType=CHAR}, #{birthday,jdbcType=VARCHAR}, 
+      #{constellation,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{hobbies,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{contactWay,jdbcType=VARCHAR}, 
+      #{expound,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
+      #{registerDate,jdbcType=VARCHAR}, #{privacySet,jdbcType=INTEGER}, #{iconPath,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sharism.user_server.model.UserInfo">
+    insert into user_server_db
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="userNickname != null">
+        user_nickname,
+      </if>
+      <if test="userMail != null">
+        user_mail,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="userState != null">
+        user_state,
+      </if>
+      <if test="theme != null">
+        theme,
+      </if>
+      <if test="userScore != null">
+        user_score,
+      </if>
+      <if test="blogCount != null">
+        blog_count,
+      </if>
+      <if test="photoCount != null">
+        photo_count,
+      </if>
+      <if test="fileCount != null">
+        file_count,
+      </if>
+      <if test="memoryCapacity != null">
+        memory_capacity,
+      </if>
+      <if test="usedCapacity != null">
+        used_capacity,
+      </if>
+      <if test="userAge != null">
+        user_age,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="constellation != null">
+        constellation,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="hobbies != null">
+        hobbies,
+      </if>
+      <if test="signature != null">
+        signature,
+      </if>
+      <if test="contactWay != null">
+        contact_way,
+      </if>
+      <if test="expound != null">
+        expound,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="mail != null">
+        mail,
+      </if>
+      <if test="registerDate != null">
+        register_date,
+      </if>
+      <if test="privacySet != null">
+        privacy_set,
+      </if>
+      <if test="iconPath != null">
+        icon_path,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null">
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null">
+        #{userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null">
+        #{userState,jdbcType=CHAR},
+      </if>
+      <if test="theme != null">
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="userScore != null">
+        #{userScore,jdbcType=DOUBLE},
+      </if>
+      <if test="blogCount != null">
+        #{blogCount,jdbcType=BIGINT},
+      </if>
+      <if test="photoCount != null">
+        #{photoCount,jdbcType=BIGINT},
+      </if>
+      <if test="fileCount != null">
+        #{fileCount,jdbcType=BIGINT},
+      </if>
+      <if test="memoryCapacity != null">
+        #{memoryCapacity,jdbcType=DOUBLE},
+      </if>
+      <if test="usedCapacity != null">
+        #{usedCapacity,jdbcType=DOUBLE},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="constellation != null">
+        #{constellation,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        #{hobbies,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWay != null">
+        #{contactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="expound != null">
+        #{expound,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null">
+        #{registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="privacySet != null">
+        #{privacySet,jdbcType=INTEGER},
+      </if>
+      <if test="iconPath != null">
+        #{iconPath,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sharism.user_server.model.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from user_server_db
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_server_db
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNickname != null">
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMail != null">
+        user_mail = #{record.userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userState != null">
+        user_state = #{record.userState,jdbcType=CHAR},
+      </if>
+      <if test="record.theme != null">
+        theme = #{record.theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userScore != null">
+        user_score = #{record.userScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.blogCount != null">
+        blog_count = #{record.blogCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.photoCount != null">
+        photo_count = #{record.photoCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileCount != null">
+        file_count = #{record.fileCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.memoryCapacity != null">
+        memory_capacity = #{record.memoryCapacity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.usedCapacity != null">
+        used_capacity = #{record.usedCapacity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.userAge != null">
+        user_age = #{record.userAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.userSex != null">
+        user_sex = #{record.userSex,jdbcType=CHAR},
+      </if>
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constellation != null">
+        constellation = #{record.constellation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null">
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hobbies != null">
+        hobbies = #{record.hobbies,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null">
+        signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactWay != null">
+        contact_way = #{record.contactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expound != null">
+        expound = #{record.expound,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null">
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mail != null">
+        mail = #{record.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerDate != null">
+        register_date = #{record.registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privacySet != null">
+        privacy_set = #{record.privacySet,jdbcType=INTEGER},
+      </if>
+      <if test="record.iconPath != null">
+        icon_path = #{record.iconPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginTime != null">
+        login_time = #{record.loginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginIp != null">
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_server_db
+    set id = #{record.id,jdbcType=CHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=INTEGER},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      user_mail = #{record.userMail,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_state = #{record.userState,jdbcType=CHAR},
+      theme = #{record.theme,jdbcType=VARCHAR},
+      user_score = #{record.userScore,jdbcType=DOUBLE},
+      blog_count = #{record.blogCount,jdbcType=BIGINT},
+      photo_count = #{record.photoCount,jdbcType=BIGINT},
+      file_count = #{record.fileCount,jdbcType=BIGINT},
+      memory_capacity = #{record.memoryCapacity,jdbcType=DOUBLE},
+      used_capacity = #{record.usedCapacity,jdbcType=DOUBLE},
+      user_age = #{record.userAge,jdbcType=INTEGER},
+      user_sex = #{record.userSex,jdbcType=CHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      constellation = #{record.constellation,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      hobbies = #{record.hobbies,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR},
+      contact_way = #{record.contactWay,jdbcType=VARCHAR},
+      expound = #{record.expound,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      mail = #{record.mail,jdbcType=VARCHAR},
+      register_date = #{record.registerDate,jdbcType=VARCHAR},
+      privacy_set = #{record.privacySet,jdbcType=INTEGER},
+      icon_path = #{record.iconPath,jdbcType=VARCHAR},
+      login_time = #{record.loginTime,jdbcType=VARCHAR},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sharism.user_server.model.UserInfo">
+    update user_server_db
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null">
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null">
+        user_mail = #{userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null">
+        user_state = #{userState,jdbcType=CHAR},
+      </if>
+      <if test="theme != null">
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="userScore != null">
+        user_score = #{userScore,jdbcType=DOUBLE},
+      </if>
+      <if test="blogCount != null">
+        blog_count = #{blogCount,jdbcType=BIGINT},
+      </if>
+      <if test="photoCount != null">
+        photo_count = #{photoCount,jdbcType=BIGINT},
+      </if>
+      <if test="fileCount != null">
+        file_count = #{fileCount,jdbcType=BIGINT},
+      </if>
+      <if test="memoryCapacity != null">
+        memory_capacity = #{memoryCapacity,jdbcType=DOUBLE},
+      </if>
+      <if test="usedCapacity != null">
+        used_capacity = #{usedCapacity,jdbcType=DOUBLE},
+      </if>
+      <if test="userAge != null">
+        user_age = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="constellation != null">
+        constellation = #{constellation,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        hobbies = #{hobbies,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWay != null">
+        contact_way = #{contactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="expound != null">
+        expound = #{expound,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null">
+        register_date = #{registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="privacySet != null">
+        privacy_set = #{privacySet,jdbcType=INTEGER},
+      </if>
+      <if test="iconPath != null">
+        icon_path = #{iconPath,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sharism.user_server.model.UserInfo">
+    update user_server_db
+    set role = #{role,jdbcType=INTEGER},
+      user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_mail = #{userMail,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_state = #{userState,jdbcType=CHAR},
+      theme = #{theme,jdbcType=VARCHAR},
+      user_score = #{userScore,jdbcType=DOUBLE},
+      blog_count = #{blogCount,jdbcType=BIGINT},
+      photo_count = #{photoCount,jdbcType=BIGINT},
+      file_count = #{fileCount,jdbcType=BIGINT},
+      memory_capacity = #{memoryCapacity,jdbcType=DOUBLE},
+      used_capacity = #{usedCapacity,jdbcType=DOUBLE},
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_sex = #{userSex,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      constellation = #{constellation,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      hobbies = #{hobbies,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      contact_way = #{contactWay,jdbcType=VARCHAR},
+      expound = #{expound,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      register_date = #{registerDate,jdbcType=VARCHAR},
+      privacy_set = #{privacySet,jdbcType=INTEGER},
+      icon_path = #{iconPath,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=VARCHAR},
+      login_ip = #{loginIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </update>
+   <!--查询测试-->
+  <select id="selectTest"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_server_db
+  </select>
+  <!--文件上传 增加使用容量-->
+  <update id="addUsedCapacity" parameterType="com.sharism.user_server.model.UserInfo">
+    update user_server_db
+    set
+    used_capacity = used_capacity + #{usedCapacity,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <!--文件删除 释放使用容量-->
+  <update id="reduceUsedCapacity" parameterType="com.sharism.user_server.model.UserInfo">
+    update user_server_db
+    set
+    used_capacity = used_capacity - #{usedCapacity,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
